@@ -3,6 +3,7 @@ import { AtSymbolIcon, LockClosedIcon, BuildingOffice2Icon, UserGroupIcon, Arrow
 import { useNavigate } from "react-router-dom";
 import { gsap } from 'gsap';
 
+
 // --- LoginForm Component (UPDATED with a Forgot Password link) ---
 function LoginForm({ title, onSubmit, error, onInputChange, isVisible, onForgotPasswordClick }) {
     const navigate = useNavigate();
@@ -62,6 +63,9 @@ export default function Login() {
     const navigate = useNavigate();
     const cardRef = useRef(null);
 
+    const API_URL = process.env.REACT_APP_API_URL;
+
+
     useEffect(() => {
         gsap.fromTo(cardRef.current, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' });
         const handleMouseMove = (e) => {
@@ -90,7 +94,7 @@ export default function Login() {
     const handleLogin = async (event) => {
         event.preventDefault();
         setError('');
-        const endpoint = `http://localhost:5000/api/auth/login/${activeTab}`;
+        const endpoint = `${API_URL}/api/auth/login/${activeTab}`;
 
         try {
             const response = await fetch(endpoint, {
@@ -124,7 +128,7 @@ export default function Login() {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/auth/forgot-password', {
+            const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),

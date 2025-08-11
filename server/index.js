@@ -16,10 +16,15 @@ import chatRoutes from './routes/chatRoutes.js';
 
 dotenv.config();
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: "http://localhost:3000", methods: ["GET", "POST"] } });
 
-app.use(cors());
+const frontendURL = process.env.FRONTEND_URL || "http://localhost:3000";
+const server = http.createServer(app);
+const io = new Server(server, { cors: { origin: frontendURL, methods: ["GET", "POST"] } });
+
+app.use(cors({
+    origin: frontendURL, // <-- Use the frontend URL
+    credentials: true
+}));
 app.use(express.json());
 
 // ★★★ FIX: Use the dedicated chatRoutes file for API endpoints. ★★★

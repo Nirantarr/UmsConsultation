@@ -28,7 +28,7 @@ const AdminLiveChat = () => {
     const adminUser = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
-        const newSocket = io(process.env.REACT_APP_SOCKET_URL || "http://localhost:5000");
+        const newSocket = io(process.env.REACT_APP_API_URL || "http://localhost:5000");
         setSocket(newSocket);
         const adminData = JSON.parse(localStorage.getItem('user'));
 

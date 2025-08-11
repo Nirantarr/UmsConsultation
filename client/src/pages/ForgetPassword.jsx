@@ -9,6 +9,7 @@ export default function ForgotPassword() {
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -16,7 +17,7 @@ export default function ForgotPassword() {
         setError('');
 
         try {
-            const response = await fetch("http://localhost:5000/api/auth/forgot-password", {
+            const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email }),

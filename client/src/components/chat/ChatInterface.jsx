@@ -25,6 +25,7 @@ const ChatInterface = ({ mode, user, session, socket, onTerminate }) => {
     const [inputValue, setInputValue] = useState('');
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     // No changes needed in these useEffect hooks
     useEffect(() => {
@@ -40,7 +41,7 @@ const ChatInterface = ({ mode, user, session, socket, onTerminate }) => {
         } else if (mode === 'live' && session?._id) {
             const fetchHistory = async () => {
                 try {
-                    const res = await fetch(`http://localhost:5000/api/chat/messages/${session._id}`);
+                    const res = await fetch(`${API_URL}/api/chat/messages/${session._id}`);
                     if (res.ok) setMessages(await res.json());
                 } catch (error) { console.error("History fetch failed:", error); }
             };

@@ -2,11 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 // --- FIX IS HERE: Imported the correctly named icon ---
-import { CheckCircleIcon, AcademicCapIcon, ShieldCheckIcon, UserGroupIcon, LifebuoyIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon, ChevronDownIcon, AcademicCapIcon, ShieldCheckIcon, UserGroupIcon, LifebuoyIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import Navbar from '../components/Home/Navbar';
-import Footer from '../components/Home/Footer';
 import UnifiedChat from '../components/chat/UnifiedChat';
-
 gsap.registerPlugin(ScrollTrigger);
 
 // --- Child Component: Themed Feature Card for "All Plans Include" ---
@@ -27,6 +25,7 @@ const PricingPage = () => {
     const [sliderValue, setSliderValue] = useState(500);
     const [price, setPrice] = useState(0);
     const [activePlan, setActivePlan] = useState('Basic');
+    const [openFaq, setOpenFaq] = useState(null);
     const priceRef = useRef({ value: 0 });
 
     const plans = [
@@ -51,7 +50,7 @@ const PricingPage = () => {
                 onUpdate: () => setPrice(Math.round(priceRef.current.value))
             });
         }
-    }, [sliderValue,plans]);
+    }, [sliderValue]);
     
     useEffect(() => {
         const proFeatures = proFeaturesRef.current.children;
@@ -111,12 +110,12 @@ const PricingPage = () => {
                 input[type=range]::-moz-range-thumb { background-color: var(--theme-primary); }
             `}</style>
             <Navbar />
-            <UnifiedChat/>
+            <UnifiedChat />
             <main>
                 <section className="hero-section text-center py-20 lg:py-28 relative overflow-hidden animated-gradient">
                     <div className="absolute inset-0 bg-black/20" />
                     <div className="container mx-auto px-6 hero-content relative z-10">
-                        <h1 className="text-4xl lg:text-6xl font-bold tracking-tight text-white font-[var(--primary-font)]">
+                        <h1 className="text-4xl lg:text-6xl font-bold tracking-tight text-white font-[var(--primary-font)] py-10">
                             Clear Pricing, Powerful Results
                         </h1>
                         <p className="mt-4 text-lg lg:text-xl max-w-3xl mx-auto text-white/80 font-[var(--secondary-font)]">
@@ -188,7 +187,6 @@ const PricingPage = () => {
                 
                 {/* --- Your existing CTA section --- */}
             </main>
-            <Footer/>
         </div>
     );
 };

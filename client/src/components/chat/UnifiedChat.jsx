@@ -17,6 +17,8 @@ const UnifiedChat = () => {
     const [socket, setSocket] = useState(null);
     const [user] = useLocalStorage('user', null);
     const [chatSession, setChatSession] = useLocalStorage('chatSession', null);
+    const API_URL = process.env.REACT_APP_API_URL;
+
 
     // GSAP animation for the launcher button (no change needed)
     useEffect(() => { gsap.fromTo(launcherRef.current, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(1.7)', delay: 1 }); }, []);
@@ -24,7 +26,7 @@ const UnifiedChat = () => {
     // Socket connection logic (no change needed)
     useEffect(() => {
         if (user && !socket) {
-            const newSocket = io("http://localhost:5000");
+            const newSocket = io(`${API_URL}`);
             setSocket(newSocket);
             
             // ★★★ FIX: Listen for the sessionStarted event from the server ★★★

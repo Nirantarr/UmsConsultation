@@ -58,7 +58,7 @@ const ModuleDetailPage = ({ title, description, image, features, inActionImage }
           <img 
             src={inActionImage || image} 
             alt={`${title} in action`} 
-            className="rounded-xl shadow-2xl mx-auto"
+            className="rounded-xl shadow-2xl mx-auto "
           />
         </div>
       </div>

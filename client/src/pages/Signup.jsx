@@ -2,7 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { AtSymbolIcon, LockClosedIcon, UserIcon, BuildingOfficeIcon, PhoneIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { gsap } from 'gsap';
+   
 
+
+  
 // --- Animated Avatar Component (No changes needed) ---
 const AnimatedAvatar = ({ type = 'consultant' }) => {
     const avatarRef = useRef(null);
@@ -136,6 +139,7 @@ export default function Signup() {
   const [error, setError] = useState(''); // NEW: Unified error handling
   const cardRef = useRef(null);
   const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     gsap.fromTo(cardRef.current, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' });
@@ -144,7 +148,7 @@ export default function Signup() {
   // NEW: Handles the initial signup API call
   const handleSignupSubmit = async (payload, role) => {
     setError('');
-    const endpoint = `http://localhost:5000/api/auth/signup/${role}`;
+    const endpoint = `${API_URL}/api/auth/signup/${role}`;
 
     try {
       const response = await fetch(endpoint, {
@@ -172,7 +176,7 @@ export default function Signup() {
   const handleOtpVerify = async (otp) => {
     setError('');
     try {
-      const response = await fetch("http://localhost:5000/api/auth/verify-otp", {
+      const response = await fetch(`${API_URL}/api/auth/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: userEmail, otp }),
