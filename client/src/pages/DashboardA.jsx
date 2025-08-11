@@ -27,8 +27,11 @@ const AdminLiveChat = () => {
     const messagesEndRef = useRef(null);
     const adminUser = JSON.parse(localStorage.getItem('user'));
 
+    const API_URL = process.env.REACT_APP_API_URL;
+
+
     useEffect(() => {
-        const newSocket = io(process.env.REACT_APP_API_URL || "http://localhost:5000");
+        const newSocket = io(API_URL || "http://localhost:5000");
         setSocket(newSocket);
         const adminData = JSON.parse(localStorage.getItem('user'));
 
@@ -42,7 +45,7 @@ const AdminLiveChat = () => {
             try {
                 const token = localStorage.getItem('token');
                 if (!token) return;
-                const res = await fetch('/api/chat/sessions', { headers: { 'Authorization': `Bearer ${token}` } });
+                const res = await fetch(`${API_URL}/api/chat/sessions`, { headers: { 'Authorization': `Bearer ${token}` } });
                 if (res.ok) setSessions(await res.json());
             } catch (error) { console.error("Failed to fetch sessions:", error); }
         };
@@ -101,7 +104,7 @@ const AdminLiveChat = () => {
         if (socket) socket.emit('joinRoom', session._id);
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`/api/chat/messages/${session._id}`, { headers: { 'Authorization': `Bearer ${token}` } });
+            const res = await fetch(`${API_URL}/api/chat/messages/${session._id}`, { headers: { 'Authorization': `Bearer ${token}` } });
             if (res.ok) setMessages(await res.json());
         } catch (error) { console.error("Failed to fetch messages:", error); }
     };
