@@ -1,0 +1,128 @@
+/* DELETE EVERYTHING in your src/index.css file and PASTE THIS CODE */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Fonts: Playfair Display and Poppins (Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* --- "TAJPE" THEME PALETTE --- */
+
+    /* 1. Core Theme Colors */
+    --theme-primary: #305090;
+    --theme-secondary: #49C6E5;
+    --theme-primary-rgb: 48, 80, 144;
+    --theme-accent: #49C6E5;
+    --theme-accent-rgb: 73, 198, 229;
+     --theme-primary-light: #818cf8;
+
+    /* 2. Gradient */
+    --theme-gradient: linear-gradient(135deg, var(--theme-accent) 20%, var(--theme-primary) 80%);
+
+    /* 3. Text Colors */
+    --text-primary: #282828;
+    --text-secondary: #6c757d;
+    --text-on-dark: #f8f9fa;
+
+    /* 4. Background Colors */
+    --light-bg-color: #ffffff;
+    --white-color: #ffffff;
+    --dark-bg-color: #0f172a;
+     background-color: #ffffff; 
+    /* 5. Supporting Colors */
+    --shadow-color: rgba(var(--theme-primary-rgb), 0.1);
+    --shadow-hover: rgba(var(--theme-primary-rgb), 0.2);
+    --card-shadow-color: rgba(0, 0, 0, 0.06);
+    --border-color: #e0e6ed;
+    
+    /* 6. Font Variables */
+    --primary-font: 'Playfair Display', serif;
+    --secondary-font: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: var(--secondary-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--light-bg-color);
+  scroll-padding-top: 80px;
+  overflow-x: hidden;
+}
+
+.text-shadow-md {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* General button styles */
+.btn-primary {
+  @apply bg-[var(--theme-primary)] text-[var(--text-on-dark)] font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-[var(--theme-secondary)] transition duration-300 ease-in-out transform hover:-translate-y-1;
+}
+.btn-secondary {
+  @apply bg-transparent border-2 border-[var(--theme-primary)] text-[var(--theme-primary)] font-semibold py-3 px-8 rounded-full hover:bg-[var(--theme-primary)] hover:text-[var(--text-on-dark)] transition duration-300 ease-in-out transform hover:-translate-y-1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+/* FAQ Section Styles */
+#faq-section { /* ... your faq styles ... */ }
+.faq-stack-container { /* ... your faq styles ... */ }
+/* ... etc ... */
+
+/* GridBackground Styles */
+.grid-panel {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-sizing: border-box;
+}
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.3s ease-in-out;
+}
+/* 1. Magic Mouse Follower Effect */
+.magic-mouse-bg {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle at center, var(--theme-primary-light), transparent 60%);
+  border-radius: 50%;
+  pointer-events: none; /* Ignore mouse events */
+  z-index: 0; /* Behind everything */
+  opacity: 0.2;
+  transform: translate(-50%, -50%);
+  filter: blur(80px); /* This creates the soft glow */
+  will-change: transform; /* Performance optimization */
+}
+
+/* 2. Sliding Active Link Indicator */
+.active-link-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: white;
+  border-radius: 9999px; /* Pill shape */
+  z-index: -1; /* Behind the link text */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s;
+  will-change: transform, width; /* Performance optimization */
+}
