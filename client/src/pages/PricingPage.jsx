@@ -130,8 +130,8 @@ const PricingPage = () => {
                             <div className="grid lg:grid-cols-2 gap-12 items-center">
                                 <div>
                                     <div className="flex justify-between items-baseline mb-4">
-                                        <label htmlFor="user-slider" className="font-bold text-lg font-[var(--secondary-font)] text-[var(--text-primary)]">Number of Learners</label>
-                                        <span className="text-3xl font-bold text-[var(--theme-primary)] px-4 py-2 rounded-lg">{sliderValue.toLocaleString()}</span>
+                                        <label htmlFor="user-slider" className="font-bold text-s font-[var(--secondary-font)] text-[var(--text-primary)]">Number of Learners</label>
+                                        <span className="text-2xl font-bold text-[var(--theme-primary)] px-2 py-2 rounded-lg">{sliderValue.toLocaleString()}</span>
                                     </div>
                                     <input id="user-slider" type="range" min="100" max="10000" step="100" value={sliderValue} onChange={(e) => setSliderValue(Number(e.target.value))}
                                         className="w-full h-2 bg-[var(--border-color)] rounded-lg appearance-none cursor-pointer" />

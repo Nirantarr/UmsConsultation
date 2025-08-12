@@ -50,9 +50,83 @@ const sendVerificationOtp = async (email) => {
     // Send the email
     await transporter.sendMail({
         from: `UniConsult <${process.env.EMAIL_USER}>`,
-        to: email,
-        subject: 'Your UniConsult Verification Code',
-        html: `<b>Welcome to UniConsult!</b><p>Your One-Time Password (OTP) to verify your email is: <h1>${otp}</h1></p><p>This code will expire in 10 minutes.</p>`,
+  to: email,
+  subject: 'Your UniConsult Verification Code',
+  html: `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="color-scheme" content="light dark">
+        <meta name="supported-color-schemes" content="light dark">
+        <style>
+            :root {
+                color-scheme: light dark;
+                supported-color-schemes: light dark;
+            }
+            @media (prefers-color-scheme: dark) {
+                .body-bg { background-color: #121212 !important; }
+                .content-card { background-color: #1e1e1e !important; }
+                .heading, .paragraph { color: #e0e0e0 !important; }
+                .footer-text { color: #777777 !important; }
+            }
+        </style>
+    </head>
+    <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; background-color: #f0f2f5;" class="body-bg">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td align="center" style="padding: 40px 20px;">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" class="content-card">
+                        <!-- Gradient Header -->
+                        <tr>
+                            <td align="center" style="padding: 20px; background-image: linear-gradient(to right, #4f46e5, #a855f7);">
+                                <h1 style="font-size: 32px; font-weight: 700; color: #ffffff; margin: 0; letter-spacing: -1px;">
+                                    UniConsult
+                                </h1>
+                            </td>
+                        </tr>
+                        <!-- Main Content -->
+                        <tr>
+                            <td style="padding: 5px;">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td align="center">
+                                            <h2 style="font-size: 24px; font-weight: 600; color: #282828; margin: 0 0 15px 0;" class="heading">Your Secure Code</h2>
+                                            <p style="font-size: 16px; color: #555555; line-height: 1.6; margin: 0 0 30px 0;" class="paragraph">Please use this one-time password to complete your sign-up process.</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="padding: 0px 0;">
+                                            <!-- The OTP -->
+                                            <div style="font-size: 42px; font-weight: 700; letter-spacing: 8px; color: #4338ca; background-color: #eef2ff; padding: 20px 40px; border-radius: 8px; display: inline-block;">
+                                                ${otp}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <p style="font-size: 14px; color: #888888; margin: 30px 0 0 0;" class="paragraph">This code is valid for 10 minutes.</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <!-- Footer -->
+                        <tr>
+                             <td align="center" style="padding: 30px 20px 30px 20px; border-top: 1px solid #e5e7eb;">
+                                <p style="font-size: 12px; color: #9ca3af; margin: 0;" class="footer-text">
+                                    &copy; ${new Date().getFullYear()} UniConsult. All Rights Reserved.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+    </html>
+  `,
     });
 };
 
@@ -267,10 +341,10 @@ export const forgotPassword = async (req, res) => {
         const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
         await transporter.sendMail({
-            from: `UniConsult <${process.env.EMAIL_USER}>`,
+           from: `UniConsult <${process.env.EMAIL_USER}>`,
             to: user.email,
             subject: 'UniConsult Password Reset Request',
-            text: `Please click the following link to reset your password: ${resetUrl}\n\nIf you did not request this, please ignore this email.`,
+            text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\n${resetUrl}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n`,
         });
 
         res.status(200).json({ message: "If an account with that email exists, a password reset link has been sent." });
