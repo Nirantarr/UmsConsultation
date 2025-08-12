@@ -140,7 +140,7 @@ const PricingPage = () => {
                                     <div className="mt-10 text-center lg:text-left bg-white/50 p-6 rounded-lg">
                                         <p className="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Plan Tier: <span className="font-bold text-[var(--theme-primary)]">{activePlan}</span></p>
                                         <div className="flex items-baseline justify-center lg:justify-start mt-2">
-                                            <p className="text-5xl font-bold text-[var(--text-primary)]">
+                                            <p className="text-3xl font-bold text-[var(--text-primary)]">
                                                 {activePlan === 'Enterprise' ? 'Custom' : `$${price.toLocaleString()}`}
                                             </p>
                                             {activePlan !== 'Enterprise' && <p className="ml-2 text-lg text-[var(--text-secondary)]">/ month</p>}
